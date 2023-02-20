@@ -1,13 +1,21 @@
 import React from 'react';
 import './MovieCard.css';
 
+interface MovieProps {
+  adult: boolean;
+  title: string;
+  release_date: string;
+  vote_average: number;
+  backdrop_path: string;
+}
+
 const MovieCard = ({
   adult,
   title,
   release_date,
   vote_average,
   backdrop_path,
-}: any) => {
+}: MovieProps) => {
   return (
     <div className="movie-card">
       <img src={backdrop_path} alt={title + ' poster'} />
