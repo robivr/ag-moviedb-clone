@@ -1,0 +1,48 @@
+.sidebar {
+  width: 300px;
+}
+
+.filter_card {
+  border: 1px solid #e3e3e3;
+  padding: 15px;
+  margin: 0 15px 15px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  border-radius: 8px;
+  width: 260px;
+  min-width: 260px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter_button {
+  width: 260px;
+  height: 44px;
+  margin: 0 15px;
+  background-color: rgb(1, 180, 228);
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 120%;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter_button:hover {
+  background-color: black;
+}
+
+.filter_button_inactive {
+  background-color: rgba(228, 228, 228, 0.7);
+  backdrop-filter: blur(10px);
+  color: rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+.filter_button_inactive:hover {
+  background-color: rgba(228, 228, 228, 0.7);
+}
