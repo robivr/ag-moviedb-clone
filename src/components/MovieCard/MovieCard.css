@@ -1,0 +1,36 @@
+.movie-card {
+  border: 1px solid #e3e3e3;
+  max-width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+}
+
+.movie-card img {
+  width: 100%;
+}
+
+.movie-card h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.movie-details {
+  padding-left: 15px;
+}
+
+.movie-score {
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  height: 34px;
+  width: 34px;
+  display: inline-block;
+  text-align: center;
+  padding-top: 8px;
+  transform: translateY(-20px);
+}
+
+.movie-date {
+  color: rgba(0, 0, 0, 0.6);
+}
