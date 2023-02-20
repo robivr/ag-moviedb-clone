@@ -7,6 +7,7 @@ interface MovieProps {
   release_date: string;
   vote_average: number;
   backdrop_path: string;
+  poster_path: string;
 }
 
 const MovieCard = ({
@@ -15,10 +16,11 @@ const MovieCard = ({
   release_date,
   vote_average,
   backdrop_path,
+  poster_path,
 }: MovieProps) => {
   return (
     <div className="movie-card">
-      <img src={backdrop_path} alt={title + ' poster'} />
+      <img src={poster_path} alt={title + ' poster'} />
       <div className="movie-details">
         <span className="movie-score">{Math.round(vote_average * 10)}%</span>
         <h3>{title}</h3>
