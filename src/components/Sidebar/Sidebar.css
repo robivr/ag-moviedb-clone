@@ -4,13 +4,20 @@
 
 .filter_card {
   border: 1px solid #e3e3e3;
-  padding: 15px;
   margin: 0 15px 15px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
   border-radius: 8px;
   width: 260px;
   min-width: 260px;
   font-weight: bold;
+  cursor: pointer;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: hidden;
+}
+
+.card_name {
+  padding: 15px;
   display: flex;
   justify-content: space-between;
 }
@@ -45,4 +52,50 @@
 
 .filter_button_inactive:hover {
   background-color: rgba(228, 228, 228, 0.7);
+}
+
+.filter_card_bot {
+  width: 260px;
+  /* padding: 15px; */
+  display: none;
+  font-weight: 100;
+  cursor: default;
+}
+
+.filter_card_bot h3 {
+  font-size: medium;
+  font-weight: 100;
+  padding-left: 15px;
+}
+
+.filter_open .filter_icon {
+  transform: rotate(90deg);
+}
+
+.filter_open.filter_card_bot {
+  display: block;
+}
+
+.filter_open > .card_name {
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.genre-list {
+  margin-left: -10px;
+}
+
+.genre {
+  border: 1px solid #9e9e9e;
+  padding: 4px 12px;
+  list-style-type: none;
+  display: inline-flex;
+  border-radius: 14px;
+  margin: 8px 6px 0 0;
+  cursor: pointer;
+}
+
+.active,
+.genre:hover {
+  color: white;
+  background-color: rgb(1, 180, 228);
 }
