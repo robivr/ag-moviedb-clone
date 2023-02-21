@@ -11,7 +11,7 @@
 }
 
 .movie-card h3 {
-  margin-top: 0;
+  margin-top: 25px;
   margin-bottom: 0;
 }
 
@@ -33,4 +33,10 @@
 
 .movie-date {
   color: rgba(0, 0, 0, 0.6);
+}
+
+.rating-canvas {
+  scale: 0.5;
+  transform: translate(-71px, -170px);
+  position: absolute;
 }

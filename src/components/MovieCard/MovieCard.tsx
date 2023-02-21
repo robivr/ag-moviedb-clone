@@ -1,5 +1,6 @@
 import React from 'react';
 import './MovieCard.css';
+import Rating from './Rating';
 
 interface MovieProps {
   adult: boolean;
@@ -22,7 +23,7 @@ const MovieCard = ({
     <div className="movie-card">
       <img src={poster_path} alt={title + ' poster'} />
       <div className="movie-details">
-        <span className="movie-score">{Math.round(vote_average * 10)}%</span>
+        <Rating progress={Math.round(vote_average * 10)} />
         <h3>{title}</h3>
         <p className="movie-date">{release_date}</p>
       </div>
