@@ -35,6 +35,7 @@ const Sidebar = () => {
       return;
     }
 
+    ctx.clearMovieList();
     ctx.activateSearchMode();
   };
 

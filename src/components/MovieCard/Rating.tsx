@@ -20,7 +20,6 @@ const Rating = ({ progress }: RatingProps) => {
       'url(https://fonts.gstatic.com/s/lato/v23/S6u9w4BMUTPHh6UVew8.ttf)'
     );
     fontLato.load().then(() => {
-      console.log('font lato loaded ');
       const canvas: any = canvasRef.current;
       const ctx = canvas!.getContext('2d');
 

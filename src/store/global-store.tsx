@@ -11,8 +11,9 @@ const GlobalContext = React.createContext({
   activateSearchButton: () => {},
   activateInfiniteScroll: () => {},
   loadPopularMovies: () => {},
-  loadMoviesByGenres: (firstSearch: boolean) => {},
+  loadMoviesByGenres: () => {},
   activateSearchMode: () => {},
+  clearMovieList: () => {},
 });
 
 const formatDate = (dateString: string) => {
@@ -54,7 +55,7 @@ export const GlobalContextProvider = (props: any) => {
     setSearchMode(true);
     setInfiniteScrollActive(false);
 
-    loadMoviesByGenres(true);
+    loadMoviesByGenres();
   };
 
   const loadPopularMovies = async () => {
@@ -87,37 +88,38 @@ export const GlobalContextProvider = (props: any) => {
     }
   };
 
-  const loadMoviesByGenres = async (firstSearch: boolean) => {
+  const loadMoviesByGenres = async () => {
     const discoverUrl = 'https://api.themoviedb.org/3/discover/movie';
 
-    const res = await fetch(
-      `${discoverUrl}?api_key=${
-        import.meta.env.VITE_API_KEY
-      }&page=${nextPage}&with_genres=${genreFilter.join(',')}`
-    );
-    const data = await res.json();
+    try {
+      const res = await fetch(
+        `${discoverUrl}?api_key=${
+          import.meta.env.VITE_API_KEY
+        }&page=${nextPage}&with_genres=${genreFilter.join(',')}`
+      );
+      const data = await res.json();
 
-    const formattedData = data.results.map((movie: any) => {
-      return {
-        ...movie,
-        release_date: formatDate(movie.release_date),
-        backdrop_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`,
-        poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`,
-      };
-    });
+      const formattedData = data.results.map((movie: any) => {
+        return {
+          ...movie,
+          release_date: formatDate(movie.release_date),
+          backdrop_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`,
+          poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`,
+        };
+      });
 
-    if (firstSearch) {
-      setMovieList([...formattedData]);
-      setNextPage(2);
-
-      return;
+      setMovieList((currentMovieList: any) => [
+        ...currentMovieList,
+        ...formattedData,
+      ]);
+      setNextPage(nextPage + 1);
+    } catch (error) {
+      console.log('Error fetching movies');
     }
+  };
 
-    setMovieList((currentMovieList: any) => [
-      ...currentMovieList,
-      ...formattedData,
-    ]);
-    setNextPage(nextPage + 1);
+  const clearMovieList = () => {
+    setMovieList([]);
   };
 
   return (
@@ -135,6 +137,7 @@ export const GlobalContextProvider = (props: any) => {
         loadPopularMovies,
         loadMoviesByGenres,
         activateSearchMode,
+        clearMovieList,
       }}
     >
       {props.children}

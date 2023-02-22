@@ -15,7 +15,7 @@ function App() {
 
   const loadMoreMovies = () => {
     if (ctx.searchMode) {
-      ctx.loadMoviesByGenres(false);
+      ctx.loadMoviesByGenres();
     } else {
       ctx.loadPopularMovies();
     }
