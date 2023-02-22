@@ -36,10 +36,8 @@ export const GlobalContextProvider = (props: any) => {
         (currGenreId) => currGenreId !== genreId
       );
 
-      console.log('Selected genre ids:', removedGenre);
       setGenreFilter(removedGenre);
     } else {
-      console.log('Selected genre ids:', [...genreFilter, genreId]);
       setGenreFilter((currentGenreFilter) => [...currentGenreFilter, genreId]);
     }
   };
@@ -53,14 +51,10 @@ export const GlobalContextProvider = (props: any) => {
   };
 
   const activateSearchMode = () => {
-    // setMovieList([]);
-    // setNextPage(1);
     setSearchMode(true);
     setInfiniteScrollActive(false);
 
     loadMoviesByGenres(true);
-    console.log('test');
-    console.log('movie list', movieList);
   };
 
   const loadPopularMovies = async () => {
@@ -93,7 +87,7 @@ export const GlobalContextProvider = (props: any) => {
     const res = await fetch(
       `${discoverUrl}?api_key=${
         import.meta.env.VITE_API_KEY
-      }&page=${nextPage}&with_genres=${genreFilter.join('')}`
+      }&page=${nextPage}&with_genres=${genreFilter.join(',')}`
     );
     const data = await res.json();
 
@@ -106,9 +100,7 @@ export const GlobalContextProvider = (props: any) => {
       };
     });
 
-    console.log(formattedData);
     if (firstSearch) {
-      console.log('loading movies?');
       setMovieList([...formattedData]);
       setNextPage(2);
 
