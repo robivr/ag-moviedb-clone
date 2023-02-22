@@ -19,7 +19,6 @@ const Sidebar = () => {
 
       const data = await res.json();
 
-      console.log(data);
       setGenreList(data.genres);
     };
 
@@ -28,6 +27,15 @@ const Sidebar = () => {
 
   const toggleFilter = () => {
     setFiltersOpen((filtersOpen) => !filtersOpen);
+  };
+
+  const handleSearch = () => {
+    if (ctx.genreFilter.length === 0) {
+      window.location.reload();
+      return;
+    }
+
+    ctx.activateSearchMode();
   };
 
   return (
@@ -66,8 +74,9 @@ const Sidebar = () => {
       </div>
       <div
         className={`filter_button ${
-          ctx.search_button_active ? '' : 'filter_button_inactive'
+          ctx.searchButtonActive ? '' : 'filter_button_inactive'
         }`}
+        onClick={handleSearch}
       >
         Search
       </div>

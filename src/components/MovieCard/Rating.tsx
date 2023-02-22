@@ -1,6 +1,10 @@
 import { useRef, useEffect } from 'react';
 
-const Rating = ({ progress }: any) => {
+interface RatingProps {
+  progress: number;
+}
+
+const Rating = ({ progress }: RatingProps) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {

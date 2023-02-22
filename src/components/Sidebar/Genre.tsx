@@ -14,6 +14,7 @@ const Genre = ({ id, name }: GenreProps) => {
   const toggleActiveState = () => {
     setIsActive((currentlyActive) => !currentlyActive);
     ctx.activateSearchButton();
+    ctx.toggleGenre(id);
   };
 
   return (

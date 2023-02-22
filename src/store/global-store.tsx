@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 
 const GlobalContext = React.createContext({
-  genre_filter: [],
+  genreFilter: [] as number[],
   movieList: [],
-  search_button_active: false,
+  searchButtonActive: false,
   infiniteScrollActive: false,
   nextPage: 0,
+  searchMode: false,
   toggleGenre: (genreId: number) => {},
   activateSearchButton: () => {},
   activateInfiniteScroll: () => {},
-  loadMovies: () => {},
+  loadPopularMovies: () => {},
+  loadMoviesByGenres: (firstSearch: boolean) => {},
+  activateSearchMode: () => {},
 });
 
 const formatDate = (dateString: string) => {
@@ -20,13 +23,26 @@ const formatDate = (dateString: string) => {
 };
 
 export const GlobalContextProvider = (props: any) => {
-  const [genreFilter, setGenreFilter] = useState([]);
+  const [genreFilter, setGenreFilter] = useState<number[]>([]);
   const [searchButtonActive, setSearchButtonActive] = useState(false);
   const [infiniteScrollActive, setInfiniteScrollActive] = useState(false);
   const [movieList, setMovieList] = useState<any>([]);
   const [nextPage, setNextPage] = useState(1);
+  const [searchMode, setSearchMode] = useState(false);
 
-  const toggleGenre = (genreId: number) => {};
+  const toggleGenre = (genreId: number) => {
+    if (genreFilter.includes(genreId)) {
+      const removedGenre = genreFilter.filter(
+        (currGenreId) => currGenreId !== genreId
+      );
+
+      console.log('Selected genre ids:', removedGenre);
+      setGenreFilter(removedGenre);
+    } else {
+      console.log('Selected genre ids:', [...genreFilter, genreId]);
+      setGenreFilter((currentGenreFilter) => [...currentGenreFilter, genreId]);
+    }
+  };
 
   const activateSearchButton = () => {
     setSearchButtonActive(true);
@@ -36,7 +52,18 @@ export const GlobalContextProvider = (props: any) => {
     setInfiniteScrollActive(true);
   };
 
-  const loadMovies = async () => {
+  const activateSearchMode = () => {
+    // setMovieList([]);
+    // setNextPage(1);
+    setSearchMode(true);
+    setInfiniteScrollActive(false);
+
+    loadMoviesByGenres(true);
+    console.log('test');
+    console.log('movie list', movieList);
+  };
+
+  const loadPopularMovies = async () => {
     const trendingUrl = 'https://api.themoviedb.org/3/movie/popular';
 
     const res = await fetch(
@@ -53,7 +80,41 @@ export const GlobalContextProvider = (props: any) => {
       };
     });
 
-    console.log('fetching movies on page:', nextPage);
+    setMovieList((currentMovieList: any) => [
+      ...currentMovieList,
+      ...formattedData,
+    ]);
+    setNextPage(nextPage + 1);
+  };
+
+  const loadMoviesByGenres = async (firstSearch: boolean) => {
+    const discoverUrl = 'https://api.themoviedb.org/3/discover/movie';
+
+    const res = await fetch(
+      `${discoverUrl}?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&page=${nextPage}&with_genres=${genreFilter.join('')}`
+    );
+    const data = await res.json();
+
+    const formattedData = data.results.map((movie: any) => {
+      return {
+        ...movie,
+        release_date: formatDate(movie.release_date),
+        backdrop_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`,
+        poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`,
+      };
+    });
+
+    console.log(formattedData);
+    if (firstSearch) {
+      console.log('loading movies?');
+      setMovieList([...formattedData]);
+      setNextPage(2);
+
+      return;
+    }
+
     setMovieList((currentMovieList: any) => [
       ...currentMovieList,
       ...formattedData,
@@ -64,15 +125,18 @@ export const GlobalContextProvider = (props: any) => {
   return (
     <GlobalContext.Provider
       value={{
-        genre_filter: genreFilter,
+        genreFilter,
         movieList,
-        search_button_active: searchButtonActive,
+        searchButtonActive,
         infiniteScrollActive,
         nextPage,
+        searchMode,
         activateSearchButton,
         toggleGenre,
         activateInfiniteScroll,
-        loadMovies,
+        loadPopularMovies,
+        loadMoviesByGenres,
+        activateSearchMode,
       }}
     >
       {props.children}
