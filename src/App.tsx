@@ -19,6 +19,9 @@ function App() {
     } else {
       ctx.loadPopularMovies();
     }
+  };
+
+  const handleLoadMoreClick = () => {
     ctx.activateInfiniteScroll();
   };
 
@@ -32,7 +35,7 @@ function App() {
         <div className="movie-container">
           <MovieList />
           {!ctx.infiniteScrollActive && (
-            <div className="load_more" onClick={loadMoreMovies}>
+            <div className="load_more" onClick={handleLoadMoreClick}>
               Load More
             </div>
           )}
@@ -43,7 +46,7 @@ function App() {
               loader={<h4>Loading ...</h4>}
               hasMore={ctx.nextPage <= 1000}
             >
-              <div>child placeholder</div>
+              <div>{null}</div>
             </InfiniteScroll>
           )}
         </div>

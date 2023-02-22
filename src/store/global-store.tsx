@@ -60,25 +60,31 @@ export const GlobalContextProvider = (props: any) => {
   const loadPopularMovies = async () => {
     const trendingUrl = 'https://api.themoviedb.org/3/movie/popular';
 
-    const res = await fetch(
-      `${trendingUrl}?api_key=${import.meta.env.VITE_API_KEY}&page=${nextPage}`
-    );
-    const data = await res.json();
+    try {
+      const res = await fetch(
+        `${trendingUrl}?api_key=${
+          import.meta.env.VITE_API_KEY
+        }&page=${nextPage}`
+      );
+      const data = await res.json();
 
-    const formattedData = data.results.map((movie: any) => {
-      return {
-        ...movie,
-        release_date: formatDate(movie.release_date),
-        backdrop_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`,
-        poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`,
-      };
-    });
+      const formattedData = data.results.map((movie: any) => {
+        return {
+          ...movie,
+          release_date: formatDate(movie.release_date),
+          backdrop_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`,
+          poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`,
+        };
+      });
 
-    setMovieList((currentMovieList: any) => [
-      ...currentMovieList,
-      ...formattedData,
-    ]);
-    setNextPage(nextPage + 1);
+      setMovieList((currentMovieList: any) => [
+        ...currentMovieList,
+        ...formattedData,
+      ]);
+      setNextPage(nextPage + 1);
+    } catch (error) {
+      console.log('Error fetching movies');
+    }
   };
 
   const loadMoviesByGenres = async (firstSearch: boolean) => {
