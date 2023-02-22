@@ -10,13 +10,24 @@
   width: 100%;
 }
 
+.movie-card img:hover {
+  cursor: pointer;
+}
+
 .movie-card h3 {
   margin-top: 25px;
   margin-bottom: 0;
+  font-size: 1em;
+}
+
+.movie-card h3:hover {
+  cursor: pointer;
+  color: rgb(1, 180, 228);
 }
 
 .movie-details {
   padding-left: 15px;
+  padding-right: 15px;
 }
 
 .movie-score {
@@ -33,6 +44,7 @@
 
 .movie-date {
   color: rgba(0, 0, 0, 0.6);
+  margin-top: 5px;
 }
 
 .rating-canvas {
