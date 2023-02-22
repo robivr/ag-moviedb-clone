@@ -40,4 +40,9 @@ body {
 .container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.title {
+  width: 100%;
 }

@@ -10,20 +10,24 @@ function App() {
   const ctx = useContext(GlobalContext);
 
   useEffect(() => {
-    ctx.loadMovies();
+    ctx.loadPopularMovies();
   }, []);
 
   const loadMoreMovies = () => {
-    ctx.loadMovies();
+    if (ctx.searchMode) {
+      ctx.loadMoviesByGenres(false);
+    } else {
+      ctx.loadPopularMovies();
+    }
     ctx.activateInfiniteScroll();
   };
 
   return (
     <div className="App">
-      <div>
-        <h2>Popular Movies</h2>
-      </div>
       <div className="container">
+        <div className="title">
+          <h2>Popular Movies</h2>
+        </div>
         <Sidebar />
         <div className="movie-container">
           <MovieList />
