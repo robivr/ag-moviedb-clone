@@ -56,7 +56,6 @@
 
 .filter_card_bot {
   width: 260px;
-  /* padding: 15px; */
   display: none;
   font-weight: 100;
   cursor: default;
@@ -98,4 +97,17 @@
 .genre:hover {
   color: white;
   background-color: rgb(1, 180, 228);
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .filter_card,
+  .filter_button {
+    width: 100%;
+    margin: 15px 0;
+  }
 }

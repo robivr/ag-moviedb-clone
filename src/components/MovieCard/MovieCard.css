@@ -40,3 +40,34 @@
   transform: translate(-71px, -170px);
   position: absolute;
 }
+
+.description {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .movie-card {
+    display: flex;
+  }
+
+  .movie-card img {
+    width: 94px;
+    min-width: 94px;
+    height: 141px;
+  }
+
+  .rating-canvas {
+    display: none;
+  }
+
+  .movie-date {
+    margin: 10px 0;
+  }
+
+  .description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+}

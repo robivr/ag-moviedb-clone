@@ -46,3 +46,15 @@ body {
 .title {
   width: 100%;
 }
+
+@media screen and (max-width: 600px) {
+  .movie-container {
+    margin-top: 20px;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .movie-grid {
+    grid-template-columns: 1fr;
+  }
+}

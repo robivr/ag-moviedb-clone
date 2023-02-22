@@ -4,6 +4,13 @@ interface RatingProps {
   progress: number;
 }
 
+const ratingColors = {
+  green: '#21cc77',
+  yellow: '#c3c62e',
+  red: '#df1d1d',
+  notRated: '#666666',
+};
+
 const Rating = ({ progress }: RatingProps) => {
   const canvasRef = useRef(null);
 
@@ -17,6 +24,21 @@ const Rating = ({ progress }: RatingProps) => {
     const cw = ctx.canvas.width / 2;
     const ch = ctx.canvas.height / 2;
 
+    let color;
+
+    if (progress === 0) {
+      color = ratingColors.notRated;
+    }
+    if (progress > 0) {
+      color = ratingColors.red;
+    }
+    if (progress > 50) {
+      color = ratingColors.yellow;
+    }
+    if (progress > 70) {
+      color = ratingColors.green;
+    }
+
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.beginPath();
 
@@ -28,7 +50,7 @@ const Rating = ({ progress }: RatingProps) => {
     ctx.stroke();
 
     ctx.fillStyle = '#fff';
-    ctx.strokeStyle = '#b3cf3c';
+    ctx.strokeStyle = color;
     ctx.textAlign = 'center';
     ctx.font = '24pt Verdana';
     ctx.lineWidth = 5;
