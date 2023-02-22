@@ -57,9 +57,11 @@
   display: none;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1020px) {
   .movie-card {
     display: flex;
+    height: 141px;
+    width: 92vw;
   }
 
   .movie-card img {

@@ -50,7 +50,21 @@ body {
   width: 100%;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1320px) {
+  .movie-grid {
+    max-width: 800px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 1120px) {
+  .movie-grid {
+    max-width: 600px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 1020px) {
   .movie-container {
     margin-top: 20px;
     width: 100%;
