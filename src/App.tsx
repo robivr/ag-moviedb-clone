@@ -25,6 +25,10 @@ function App() {
     ctx.activateInfiniteScroll();
   };
 
+  if (!import.meta.env.VITE_API_KEY) {
+    return <h1>Error, please contact support</h1>;
+  }
+
   return (
     <div className="App">
       <div className="container">
